@@ -1,0 +1,21 @@
+{
+  "name": "ise_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.178.23:30008/studies/ISE_backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aedes": "^1.0.0",
+    "express": "^5.2.1",
+    "mqtt": "^5.15.0"
+  }
+}
