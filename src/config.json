@@ -1,0 +1,15 @@
+{
+    "mqtt": {
+        "host": 1,
+        "port": 1883,
+        "mqttTopics": [
+                "sensor1",
+                "sensor2",
+                "sensor3"
+            ]
+    },
+    "rest": {
+        "port": 3000,
+        "examplePath": "/sensor-data"
+    }    
+}
