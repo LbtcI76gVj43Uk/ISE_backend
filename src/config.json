@@ -10,6 +10,6 @@
     },
     "rest": {
         "port": 3000,
-        "examplePath": "/sensor-data"
+        "mainPath": "/university-parking-assistant"
     }    
 }

@@ -17,6 +17,7 @@
   "dependencies": {
     "aedes": "^0.51.3",
     "express": "^5.2.1",
+    "mongoose": "^9.2.1",
     "mqtt": "^5.15.0"
   }
 }
