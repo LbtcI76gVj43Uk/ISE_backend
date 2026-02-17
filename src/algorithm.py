@@ -1,16 +1,44 @@
 import sys
 import json
+import os
 import time
 import random
+import requests
+
+def load_config():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    config_path = os.path.join(script_dir, 'config.json')
+    
+    try:
+        with open(config_path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return None
 
 def run_algorithm():
     try:
+        config = load_config()
+    
+        if not config:
+            print(json.dumps({"error": "config.json not found"}))
+            return
+    
         if len(sys.argv) < 2:
             print(json.dumps({"error": "No input provided"}))
             return
 
         raw_input = sys.argv[1]
         data = json.loads(raw_input)
+        
+        # get current sensor data (only mocked, not used)
+        rest = config.get("rest", {})
+        subpaths = rest.get("subpaths", {})
+        url = (
+            f"http://{rest.get('host')}:{rest.get('port')}/api"
+            f"{rest.get('basePath')}{subpaths.get('db')}"
+        )
+        db_response = requests.get(url)
 
         # determain random area from selected ones
         algorithm_result = get_random_available_area(data.get("config"))
@@ -22,14 +50,22 @@ def run_algorithm():
             "session-id": data.get("session-id"),
             "timestamp": time.time(),
             "status": "success",
+            "message": {},
             "result": algorithm_result,
         }
 
         # output the result
         print(json.dumps(result))
-
-    except Exception as e:
-        print(json.dumps({"error": str(e)}))
+    
+    except Exception as error_message:
+        result = {
+            "session-id": data.get("session-id"),
+            "timestamp": time.time(),
+            "status": "failed",
+            "message": str(error_message),
+            "result": {},
+        }
+        print(json.dumps(result))
 
 def get_random_available_area(config_data):
     available_options = []

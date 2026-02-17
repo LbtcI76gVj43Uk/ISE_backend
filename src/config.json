@@ -1,15 +1,15 @@
 {
     "mqtt": {
-        "host": 1,
-        "port": 1883,
-        "mqttTopics": [
-                "sensor1",
-                "sensor2",
-                "sensor3"
-            ]
+        "host": "localhost",
+        "port": 1883
     },
     "rest": {
+        "host": "localhost",
         "port": 3000,
-        "basePath": "/university-parking-assistant"
-    }    
+        "basePath": "/university-parking-assistant",
+        "subpaths": {
+            "db": "/db",
+            "navigation-session": "/navigation-session"
+        }
+    }
 }
