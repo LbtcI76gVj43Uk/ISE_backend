@@ -2,14 +2,26 @@ import express from 'express'
 import { spawn } from 'child_process'
 import { join } from 'path'
 import { readFileSync } from 'fs'
+import { Sensor } from './db.js'
 
 const router = express.Router()
 const config = JSON.parse(readFileSync(join(process.cwd(), 'src', 'config.json'), 'utf8'))
 
 // Assuming mainPath is "/api" and we add the suffix
 const navPath = '/university-parking-assistant/navigation-session'
+const dbPath = '/university-parking-assistant/db'
 
 export default (aedes) => {
+
+    // GET: Fetch all sensor states from MongoDB
+  router.get(dbPath, async (req, res) => {
+    try {
+      const states = await Sensor.find()
+      res.json(states)
+    } catch (err) {
+      res.status(500).json({ error: err.message })
+    }
+  })
 
   router.post(navPath, (req, res) => {
     // 1. Read body from user

@@ -1,10 +1,10 @@
 import sys
 import json
 import time
+import random
 
 def run_algorithm():
     try:
-        # 1. Capture input from Node.js
         if len(sys.argv) < 2:
             print(json.dumps({"error": "No input provided"}))
             return
@@ -12,25 +12,44 @@ def run_algorithm():
         raw_input = sys.argv[1]
         data = json.loads(raw_input)
 
-        # 2. Dummy Algorithm Logic
-        # We take a dummy field 'request_type' and return a decision
-        user_msg = data.get("dummy_input", "no data")
+        # determain random area from selected ones
+        algorithm_result = get_random_available_area(data.get("config"))
         
-        # Simulate a small delay for the calculation
+        # simulate a small delay for the algorithm running time
         time.sleep(1) 
 
         result = {
-            "status": "completed",
-            "decision": f"Algorithm processed: {user_msg}",
-            "parking_spot": "Spot-A12",
-            "timestamp": time.time()
+            "session-id": data.get("session-id"),
+            "timestamp": time.time(),
+            "status": "success",
+            "result": algorithm_result,
         }
 
-        # 3. Output the result for Node.js to catch
+        # output the result
         print(json.dumps(result))
 
     except Exception as e:
         print(json.dumps({"error": str(e)}))
+
+def get_random_available_area(config_data):
+    available_options = []
+    
+    # filter for selected areas
+    for lot_name, areas in config_data.items():
+        for area_name, is_available in areas.items():
+            if is_available is True:
+                available_options.append((lot_name, area_name))
+    
+    if not available_options:
+        return None
+    
+    # pick one random tuple
+    chosen_lot, chosen_area = random.choice(available_options)
+    
+    return {
+        "parking_lot": chosen_lot,
+        "area": chosen_area
+    }
 
 if __name__ == "__main__":
     run_algorithm()
