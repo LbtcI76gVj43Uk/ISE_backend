@@ -10,6 +10,6 @@
     },
     "rest": {
         "port": 3000,
-        "mainPath": "/university-parking-assistant"
+        "basePath": "/university-parking-assistant"
     }    
 }

@@ -2,8 +2,7 @@ import mongoose from 'mongoose'
 
 export async function connectToDatabase() {
   try {
-    // Replace with your MongoDB URI (local or Atlas)
-    const uri = 'mongodb://127.0.0.1:27017/ise_iot'
+    const uri = 'mongodb://localhost:27017/ise_iot' //only locally served
     await mongoose.connect(uri)
   } catch (err) {
     console.error('[DB] Connection error:', err)
@@ -11,7 +10,7 @@ export async function connectToDatabase() {
   }
 }
 
-// Define a Schema for your sensors
+// sensor schema
 const sensorSchema = new mongoose.Schema({
   topic: { type: String, required: true, unique: true },
   data: mongoose.Schema.Types.Mixed,
