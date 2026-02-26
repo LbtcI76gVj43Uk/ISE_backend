@@ -28,7 +28,7 @@ export default (aedes) => {
     const inputData = JSON.stringify(req.body)
     
     // 2. Determine paths for venv and script
-    const pythonExecutable = join(process.cwd(), '.venv', 'Scripts', 'python.exe') // Adjust for Linux: 'venv/bin/python'
+    const pythonExecutable = join(process.cwd(), 'venv', 'bin', 'python')
     const scriptPath = join(process.cwd(), 'src', 'algorithm.py')
 
     // 3. Start the algorithm with params from body

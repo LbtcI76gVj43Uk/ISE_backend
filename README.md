@@ -23,7 +23,7 @@ pip install -r .\requirements.txt
 ```
 
 ```bash
-node index.js
+npm run start
 ```
 
 ## REST API
@@ -110,6 +110,7 @@ Bridges the frontend request to the Python-based allocation logic.
 
 **Example Payload:**
 
+```json
 [
     {
         "_id": "699499c3fd1e4e97c10efd2f",
@@ -122,3 +123,20 @@ Bridges the frontend request to the Python-based allocation logic.
         "lastUpdated": "2026-02-17T18:28:57.896Z"
     }
 ]
+```
+
+#### Publish sensor data
+
+Publish sensor data via MQTT.
+
+* **Connection**: `mqtt://localhost:1883/`
+* **Topic**:`sensors/<unique_sensor_id>`
+
+**Example Payload**
+
+```json
+{
+  "id": 1111, 
+  "spots-available": 5
+} 
+```

@@ -2,7 +2,9 @@ import mongoose from 'mongoose'
 
 export async function connectToDatabase() {
   try {
-    const uri = 'mongodb://localhost:27017/ise_iot' //only locally served
+    const host = process.env.MONGO_HOST || 'db' 
+    const uri = `mongodb://${host}:27017/ise_iot`
+    //const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/ise_iot'
     await mongoose.connect(uri)
   } catch (err) {
     console.error('[DB] Connection error:', err)
