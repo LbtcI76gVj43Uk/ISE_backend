@@ -10,6 +10,8 @@
 git clone ...
 ```
 
+Create `.env` file accordingly to `.env.example`.
+
 ```bash
 docker-compose up --build
 ```
@@ -51,7 +53,7 @@ Bridges the frontend request to the Python-based allocation logic.
 * **URL:** `/university-parking-assistant/navigation-session`
 * **Method:** `POST`
 
-**Example Payload:**
+**Example Body:**
 
 ```json
 {
@@ -116,7 +118,7 @@ Bridges the frontend request to the Python-based allocation logic.
 * **URL:** `/university-parking-assistant/fetch_db`
 * **Method:** `GET`
 
-**Example Payload:**
+**Example Response:**
 
 ```json
 [
@@ -140,7 +142,7 @@ Returns the current config of he backend instance.
 * **URL:** `/university-parking-assistant/fetch_config`
 * **Method:** `GET`
 
-**Example Payload:**
+**Example Response:**
 
 ```json
 {
@@ -155,6 +157,62 @@ Returns the current config of he backend instance.
     },
     "mqtt": {
         "sensorTopic": "sensors/"
+    }
+}
+```
+
+#### 4. Get user's time table
+
+Mocks a SQL SELECT call to return the user's time table.
+
+* **URL:** `/university-parking-assistant/fetch_time_table`
+* **Method:** `GET`
+
+**Body**
+
+```json
+{
+  "session-id": "8be4df61-93ca-11d2-aa0d-00e098032b8c",
+  "timestamp": 1771352675.3088448,
+  "user-id": "xyz-123"
+}
+```
+
+**Example Response:**
+
+```json
+{
+    "session-id": "8be4df61-93ca-11d2-aa0d-00e098032b8c",
+    "timestamp": 1772212481.657,
+    "status": "success",
+    "user-id": "xyz-123",
+    "result": {
+        "time_table": [
+            {
+                "day": "Tuesday",
+                "subject": "Advanced Topics in Algorithm",
+                "room": "LE-1.410",
+                "time": "15:45 - 17:20"
+            },
+            {
+                "day": "Wednesday",
+                "subject": "Management and Business Administration",
+                "room": "LE-1.375",
+                "time": "08:00 - 11:20"
+            },
+            {
+                "day": "Thursday",
+                "subject": "Scientific Methods and Writing",
+                "room": "LE-1.204",
+                "time": "15:45 - 17:20"
+            },
+            {
+                "day": "Friday",
+                "subject": "Industrial Software Engineering",
+                "room": "LE-1.149",
+                "time": "09:45 - 13:05"
+            }
+        ]
     }
 }
 ```
