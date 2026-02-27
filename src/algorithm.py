@@ -38,7 +38,7 @@ def run_algorithm():
         subpaths = rest_config.get("subpaths", {})
         url = (
             f"http://{host}:{port}/api"
-            f"{rest_config.get('basePath')}{subpaths.get('db')}"
+            f"{rest_config.get('basePath')}{subpaths.get('fetch_db')}"
         )
         db_response = requests.get(url)
 

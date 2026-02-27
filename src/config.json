@@ -5,8 +5,9 @@
     "rest": {
         "basePath": "/university-parking-assistant",
         "subpaths": {
-            "db": "/db",
-            "navigation-session": "/navigation-session"
+            "fetch_db": "/fetch_db",
+            "navigation-session": "/navigation-session",
+            "fetch_config": "/fetch_config"
         }
     }
 }

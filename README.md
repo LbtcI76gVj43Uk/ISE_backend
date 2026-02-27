@@ -113,7 +113,7 @@ Bridges the frontend request to the Python-based allocation logic.
 
 Bridges the frontend request to the Python-based allocation logic.
 
-* **URL:** `/university-parking-assistant/db`
+* **URL:** `/university-parking-assistant/fetch_db`
 * **Method:** `GET`
 
 **Example Payload:**
@@ -131,6 +131,32 @@ Bridges the frontend request to the Python-based allocation logic.
         "lastUpdated": "2026-02-17T18:28:57.896Z"
     }
 ]
+```
+
+#### 3. Get current config json parameters
+
+Returns the current config of he backend instance.
+
+* **URL:** `/university-parking-assistant/fetch_config`
+* **Method:** `GET`
+
+**Example Payload:**
+
+```json
+{
+    "rest": {
+        "basePath": "/university-parking-assistant",
+        "subpaths": {
+            "read_db": "/db",
+            "run_navigation-session": "/navigation-session",
+            "read_config": "/read_config",
+            "set_config": "/set_config"
+        }
+    },
+    "mqtt": {
+        "sensorTopic": "sensors/"
+    }
+}
 ```
 
 #### Publish sensor data
