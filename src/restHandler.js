@@ -7,7 +7,8 @@ import { config } from './config.js'
 const router = express.Router()
 
 const navPath = `${config.rest.basePath}${config.rest.subpaths['navigation-session']}`
-const dbPath = `${config.rest.basePath}${config.rest.subpaths['db']}`
+const dbPath = `${config.rest.basePath}${config.rest.subpaths['fetch_db']}`
+const fetchConfigPath = `${config.rest.basePath}${config.rest.subpaths['fetch_config']}`
 
 export default (aedes) => {
 
@@ -21,6 +22,16 @@ export default (aedes) => {
     }
   })
 
+  // GET: Fetch current config json parameters
+  router.get(fetchConfigPath, (req, res) => {
+    try {
+      res.json(config)
+    } catch (err) {
+      res.status(500).json({ error: "Could not retrieve config" })
+    }
+  })
+
+  // POST: Execute recommendation algorithm and send result
   router.post(navPath, (req, res) => {
     // read incoming body
     const inputData = JSON.stringify(req.body)
