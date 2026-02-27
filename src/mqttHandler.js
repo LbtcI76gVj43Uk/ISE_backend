@@ -1,29 +1,26 @@
 import aedesFactory from 'aedes'
 import { createServer } from 'net'
-import { readFileSync } from 'fs'
-import { join } from 'path'
-import { Sensor } from './db.js' // Import the model
+import { Sensor } from './db.js'
 
-const config = JSON.parse(readFileSync(join(process.cwd(), 'src', 'config.json'), 'utf8'))
 const aedes = aedesFactory()
 const server = createServer(aedes.handle)
 
 export function initMQTT() {
-  server.listen(config.mqtt.port, () => {
-    console.log(`[MQTT] Broker active on port ${config.mqtt.port}`)
+  const MQTT_PORT = process.env.MQTT_PORT || 1883
+  server.listen(MQTT_PORT, () => {
+    console.log(`[MQTT] Broker active on port ${MQTT_PORT}`)
   })
 
-  // Marked as async to allow 'await'
+  // async to allow await
   aedes.on('publish', async (packet, client) => {
     if (client) {
       const topic = packet.topic
       
-      // Check if it's a sensor topic
+      // check for correct sub topic
       if (topic.startsWith('sensors/')) {
         try {
           const payload = JSON.parse(packet.payload.toString())
           
-          // UPSERT: Find by topic, update data/time, create if missing
           await Sensor.findOneAndUpdate(
             { topic: topic },
             { 

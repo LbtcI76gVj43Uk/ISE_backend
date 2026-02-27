@@ -1,29 +1,33 @@
 # ISE backend
 
-## Setup project
+## Run project
 
 ```bash
 git clone ...
 ```
 
 ```bash
-npm i
+docker-compose up --build
 ```
 
-```bash
-python -m venv .venv
-```
+## Stop instance
 
 ```bash
-.\.venv\Scripts\Activate.ps1
+docker-compose down -v 
 ```
 
-```bash
-pip install -r .\requirements.txt
-```
+## Debugging
+
+List current containers (ise_backend-app, mongo:latest)
 
 ```bash
-npm run start
+docker ps
+```
+
+Show container logs
+
+```bash
+docker-compose logs app
 ```
 
 ## REST API

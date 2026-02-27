@@ -1,11 +1,5 @@
 {
-    "mqtt": {
-        "host": "localhost",
-        "port": 1883
-    },
     "rest": {
-        "host": "localhost",
-        "port": 3000,
         "basePath": "/university-parking-assistant",
         "subpaths": {
             "db": "/db",

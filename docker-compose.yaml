@@ -1,18 +1,23 @@
 services:
-  app:
+  app: #TODO find suitable name
     build: .
     ports:
-      - "3000:3000"
-      - "1883:1883"
+      - "${REST_PORT}:${REST_PORT}"
+      - "${MQTT_PORT}:${MQTT_PORT}"
     environment:
-      - MONGO_URI=mongodb://db:27017/ise_iot
+      - MONGO_HOST=${MONGO_HOST}
+      - MONGO_PORT=${MONGO_PORT}
+      - REST_PORT=${REST_PORT}
+      - REST_HOST=${REST_HOST}
+      - MQTT_PORT=${MQTT_PORT}
+      - MQTT_HOST=${MQTT_HOST}
     depends_on:
       - db
 
   db:
     image: mongo:latest
     ports:
-      - "27017:27017"
+      - "${MONGO_PORT}:${MONGO_PORT}"
     volumes:
       - mongo-data:/data/db
 

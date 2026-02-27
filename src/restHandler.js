@@ -1,15 +1,13 @@
 import express from 'express'
 import { spawn } from 'child_process'
 import { join } from 'path'
-import { readFileSync } from 'fs'
 import { Sensor } from './db.js'
+import { config } from './config.js'
 
 const router = express.Router()
-const config = JSON.parse(readFileSync(join(process.cwd(), 'src', 'config.json'), 'utf8'))
 
-// Assuming mainPath is "/api" and we add the suffix
-const navPath = '/university-parking-assistant/navigation-session'
-const dbPath = '/university-parking-assistant/db'
+const navPath = `${config.rest.basePath}${config.rest.subpaths['navigation-session']}`
+const dbPath = `${config.rest.basePath}${config.rest.subpaths['db']}`
 
 export default (aedes) => {
 
@@ -24,15 +22,17 @@ export default (aedes) => {
   })
 
   router.post(navPath, (req, res) => {
-    // 1. Read body from user
+    // read incoming body
     const inputData = JSON.stringify(req.body)
     
-    // 2. Determine paths for venv and script
+    // determine paths for venv and script
     const pythonExecutable = join(process.cwd(), 'venv', 'bin', 'python')
     const scriptPath = join(process.cwd(), 'src', 'algorithm.py')
 
-    // 3. Start the algorithm with params from body
-    const pythonProcess = spawn(pythonExecutable, [scriptPath, inputData])
+    // algorithm with params from body
+    const pythonProcess = spawn(pythonExecutable, [scriptPath, inputData], {
+      env: { ...process.env } // This spreads all current env vars into the child process
+    })
 
     let output = ''
     let errorOutput = ''
@@ -45,7 +45,6 @@ export default (aedes) => {
       errorOutput += data.toString()
     })
 
-    // 4. Algorithm determines result and process closes
     pythonProcess.on('close', (code) => {
       if (code !== 0) {
         console.error(`[PYTHON ERROR]: ${errorOutput}`)
@@ -53,7 +52,7 @@ export default (aedes) => {
       }
 
       try {
-        // 5. Backend sends (posts) result back to the user
+        // send result
         const result = JSON.parse(output)
         res.json(result)
       } catch (e) {

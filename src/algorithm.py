@@ -31,12 +31,14 @@ def run_algorithm():
         raw_input = sys.argv[1]
         data = json.loads(raw_input)
         
-        # get current sensor data (only mocked, not used)
-        rest = config.get("rest", {})
-        subpaths = rest.get("subpaths", {})
+        # get current sensor data for algorithm input (only mocked, not used)
+        host = os.getenv("REST_HOST", "127.0.0.1")
+        port = os.getenv("REST_PORT", "3000")
+        rest_config = config.get("rest", {})
+        subpaths = rest_config.get("subpaths", {})
         url = (
-            f"http://{rest.get('host')}:{rest.get('port')}/api"
-            f"{rest.get('basePath')}{subpaths.get('db')}"
+            f"http://{host}:{port}/api"
+            f"{rest_config.get('basePath')}{subpaths.get('db')}"
         )
         db_response = requests.get(url)
 
