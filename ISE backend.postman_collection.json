@@ -1,0 +1,140 @@
+{
+  "info": {
+    "_postman_id": "f875c520-cea9-43da-9c65-d221197dde34",
+    "name": "ISE backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48372870",
+    "_collection_link": "https://go.postman.co/collection/48372870-f875c520-cea9-43da-9c65-d221197dde34?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "start navigation session",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"session-id\": \"8be4df61-93ca-11d2-aa0d-00e098032b8c\",\r\n  \"timestamp\": 1771352675.3088448,\r\n  \"user-id\": \"xyz-123\",\r\n  \"trigger-radius\": 1,\r\n  \"config\": {\r\n    \"parking-lot-1\": {\r\n        \"area-1\": true,\r\n        \"area-2\": true,\r\n        \"area-3\": true\r\n    },\r\n    \"parking-lot-2\": {\r\n        \"area-1\": true,\r\n        \"area-2\": true,\r\n        \"area-3\": true\r\n    },\r\n    \"parking-lot-3\": {\r\n        \"area-1\": true,\r\n        \"area-2\": true,\r\n        \"area-3\": true\r\n    },\r\n    \"parking-lot-4\": {\r\n        \"area-1\": true,\r\n        \"area-2\": true,\r\n        \"area-3\": true\r\n    }\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/university-parking-assistant/navigation-session",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "university-parking-assistant",
+            "navigation-session"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get sensor db",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"session-id\": \"8be4df61-93ca-11d2-aa0d-00e098032b8c\",\r\n  \"timestamp\": 1771352675.3088448,\r\n  \"user-id\": \"xyz-123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/university-parking-assistant/fetch_db",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "university-parking-assistant",
+            "fetch_db"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get config",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"session-id\": \"8be4df61-93ca-11d2-aa0d-00e098032b8c\",\r\n  \"timestamp\": 1771352675.3088448,\r\n  \"user-id\": \"xyz-123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/university-parking-assistant/fetch_config",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "university-parking-assistant",
+            "fetch_config"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get time table",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"session-id\": \"8be4df61-93ca-11d2-aa0d-00e098032b8c\",\r\n  \"timestamp\": 1771352675.3088448,\r\n  \"user-id\": \"xyz-123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/university-parking-assistant/fech_time_table",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "university-parking-assistant",
+            "fech_time_table"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
