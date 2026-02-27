@@ -1,9 +1,12 @@
 import aedesFactory from 'aedes'
 import { createServer } from 'net'
 import { Sensor } from './db.js'
+import { config } from './config.js'
 
 const aedes = aedesFactory()
 const server = createServer(aedes.handle)
+
+const sensorTopic = config.mqtt.sensorTopic
 
 export function initMQTT() {
   const MQTT_PORT = process.env.MQTT_PORT || 1883
@@ -17,7 +20,7 @@ export function initMQTT() {
       const topic = packet.topic
       
       // check for correct sub topic
-      if (topic.startsWith('sensors/')) {
+      if (topic.startsWith(sensorTopic)) {
         try {
           const payload = JSON.parse(packet.payload.toString())
           

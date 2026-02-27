@@ -1,4 +1,7 @@
 {
+    "mqtt": {
+        "sensorTopic": "sensors/"
+    },
     "rest": {
         "basePath": "/university-parking-assistant",
         "subpaths": {

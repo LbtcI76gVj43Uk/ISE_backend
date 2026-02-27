@@ -1,5 +1,9 @@
 # ISE backend
 
+## Prerequisites
+
+* Docker instance
+
 ## Run project
 
 ```bash
