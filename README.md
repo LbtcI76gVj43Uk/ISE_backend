@@ -118,21 +118,47 @@ Bridges the frontend request to the Python-based allocation logic.
 * **URL:** `/university-parking-assistant/fetch_db`
 * **Method:** `GET`
 
+**Example Body**
+
+```json
+{
+  "session-id": "8be4df61-93ca-11d2-aa0d-00e098032b8c",
+  "timestamp": 1771352675.3088448,
+  "user-id": "xyz-123"
+}
+```
+
 **Example Response:**
 
 ```json
-[
-    {
-        "_id": "699499c3fd1e4e97c10efd2f",
-        "topic": "sensors/1",
-        "__v": 0,
-        "data": {
-            "id": 1111,
-            "spots-available": 5
+{
+    "session-id": "8be4df61-93ca-11d2-aa0d-00e098032b8c",
+    "timestamp": 1772213184.518,
+    "status": "success",
+    "user-id": "xyz-123",
+    "db": [
+        {
+            "_id": "69a1d3a9c6ffae6056fb2e43",
+            "topic": "sensors/3",
+            "__v": 0,
+            "data": {
+                "id": 4511,
+                "spots-available": 6
+            },
+            "lastUpdated": "2026-02-27T17:26:01.802Z"
         },
-        "lastUpdated": "2026-02-17T18:28:57.896Z"
-    }
-]
+        {
+            "_id": "69a1d3bbc6ffae6056fb2e44",
+            "topic": "sensors/2",
+            "__v": 0,
+            "data": {
+                "id": 4511,
+                "spots-available": 6
+            },
+            "lastUpdated": "2026-02-27T17:26:19.819Z"
+        }
+    ]
+}
 ```
 
 #### 3. Get current config json parameters
@@ -142,21 +168,37 @@ Returns the current config of he backend instance.
 * **URL:** `/university-parking-assistant/fetch_config`
 * **Method:** `GET`
 
+**Example Body**
+
+```json
+{
+  "session-id": "8be4df61-93ca-11d2-aa0d-00e098032b8c",
+  "timestamp": 1771352675.3088448,
+  "user-id": "xyz-123"
+}
+```
+
 **Example Response:**
 
 ```json
 {
-    "rest": {
-        "basePath": "/university-parking-assistant",
-        "subpaths": {
-            "read_db": "/db",
-            "run_navigation-session": "/navigation-session",
-            "read_config": "/read_config",
-            "set_config": "/set_config"
+    "session-id": "8be4df61-93ca-11d2-aa0d-00e098032b8c",
+    "timestamp": 1772213191.408,
+    "status": "success",
+    "user-id": "xyz-123",
+    "config": {
+        "rest": {
+            "basePath": "/university-parking-assistant",
+            "subpaths": {
+                "fetch_db": "/fetch_db",
+                "navigation-session": "/navigation-session",
+                "fetch_config": "/fetch_config",
+                "fech_time_table": "/fech_time_table"
+            }
+        },
+        "mqtt": {
+            "sensorTopic": "sensors/"
         }
-    },
-    "mqtt": {
-        "sensorTopic": "sensors/"
     }
 }
 ```
@@ -183,7 +225,7 @@ Mocks a SQL SELECT call to return the user's time table.
 ```json
 {
     "session-id": "8be4df61-93ca-11d2-aa0d-00e098032b8c",
-    "timestamp": 1772212481.657,
+    "timestamp": 1772213199.138,
     "status": "success",
     "user-id": "xyz-123",
     "result": {

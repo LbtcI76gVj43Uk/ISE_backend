@@ -25,8 +25,18 @@ export default (aedes) => {
     // GET: Fetch all sensor states from MongoDB
   router.get(dbPath, async (req, res) => {
     try {
+      const userId = req.body['user-id']
+      const sessionId = req.body['session-id']
+
       const states = await Sensor.find()
-      res.json(states)
+
+      res.json({
+        "session-id": sessionId,
+        "timestamp": Date.now() / 1000,
+        "status": states.length > 0 ? "success" : "not_found",
+        "user-id": userId,
+        "db": states
+      })
     } catch (err) {
       res.status(500).json({ error: err.message })
     }
@@ -35,7 +45,16 @@ export default (aedes) => {
   // GET: Fetch current config json parameters
   router.get(fetchConfigPath, (req, res) => {
     try {
-      res.json(config)
+      const userId = req.body['user-id']
+      const sessionId = req.body['session-id']
+
+      res.json({
+        "session-id": sessionId,
+        "timestamp": Date.now() / 1000,
+        "status": Object.keys(config).length > 0 ? "success" : "not_found",
+        "user-id": userId,
+        "config": config
+      })
     } catch (err) {
       res.status(500).json({ error: "Could not retrieve config" })
     }
@@ -80,7 +99,7 @@ export default (aedes) => {
 
     // algorithm with params from body
     const pythonProcess = spawn(pythonExecutable, [scriptPath, inputData], {
-      env: { ...process.env } // This spreads all current env vars into the child process
+      env: { ...process.env }
     })
 
     let output = ''

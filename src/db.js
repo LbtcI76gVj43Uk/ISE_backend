@@ -5,7 +5,7 @@ export async function connectToDatabase() {
     const host = process.env.MONGO_HOST || 'db' 
     const port = process.env.MONGO_PORT || 27017 
     const uri = `mongodb://${host}:${port}/ise_iot`
-    //const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/ise_iot'
+    
     await mongoose.connect(uri)
   } catch (err) {
     console.error('[DB] Connection error:', err)
